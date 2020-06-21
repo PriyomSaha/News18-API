@@ -53,8 +53,11 @@ app.listen(port,() =>console.log(`Server running on Port ${port}`));
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage({ headless: false });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox"]
+  });
+  const page = await browser.newPage();
   await page.goto('https://www.news18.com/india/1', { waitUntil: 'networkidle0' });
 
   await page.waitForSelector('.blog-list-blog')
